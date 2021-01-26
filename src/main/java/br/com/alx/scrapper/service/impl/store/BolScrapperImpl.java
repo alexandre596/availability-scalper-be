@@ -22,18 +22,13 @@ public class BolScrapperImpl extends BaseScrapper implements ScrapperService {
 
     @Override
     public Optional<String> getPriceSection() {
-        try {
-            Document page = getFullPageContent(url);
+        Document page = getFullPageContent(url);
+        Elements repositories = page.getElementsByClass("price-block__price");
 
-            Elements repositories = page.getElementsByClass("price-block__price");
-
-            if(repositories == null || repositories.isEmpty()) {
-                LOGGER.debug("The sidebar could not be found. Probably this item isn't available at the moment.");
-            } else {
-                return Optional.ofNullable(repositories.toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (repositories == null || repositories.isEmpty()) {
+            LOGGER.debug("The sidebar could not be found. Probably this item isn't available at the moment.");
+        } else {
+            return Optional.ofNullable(repositories.toString());
         }
 
         return Optional.empty();
