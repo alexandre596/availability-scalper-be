@@ -4,25 +4,30 @@ import br.com.alx.scrapper.service.ScrapperService;
 import br.com.alx.scrapper.service.base.BaseScrapper;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service
 public class MediaMarktScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    @Value("${sites.mediamarkt.url}")
-    private String url;
-
+    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(MediaMarktScrapperImpl.class);
+
+    @Autowired
+    public MediaMarktScrapperImpl(WebDriver ghostDriver, @Value("${sites.mediamarkt.url}") String url) {
+        super(ghostDriver);
+        this.url = url;
+    }
 
     @Override
     public Optional<String> getPriceSection() {
-        Document page = getFullPageContent(url);
+        Document page = getFullPageContent(this.url);
         Elements repositories = page.getElementsByClass("price-sidebar");
 
         if (repositories == null || repositories.isEmpty()) {
