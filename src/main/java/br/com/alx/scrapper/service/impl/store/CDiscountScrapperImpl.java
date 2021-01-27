@@ -17,13 +17,11 @@ import java.util.Optional;
 @Service
 public class CDiscountScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(CDiscountScrapperImpl.class);
 
     @Autowired
     public CDiscountScrapperImpl(WebDriver ghostDriver, @Value("${sites.cdiscount.url}") String url) {
-        super(ghostDriver);
-        this.url = url;
+        super(ghostDriver, url);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class CDiscountScrapperImpl extends BaseScrapper implements ScrapperServi
 
         if (repositories == null || !repositories.toString().contains("Console Xbox Series X")) {
             LOGGER.warn("The item could not be found. Maybe something has changed?");
-            return Optional.of("Invalid selection " + RandomStringUtils.random(5));
+            return Optional.of("Invalid selection " + RandomStringUtils.randomAlphanumeric(5));
         } else {
             return Optional.ofNullable(repositories.toString());
         }

@@ -17,13 +17,11 @@ import java.util.Optional;
 @Service
 public class CoolBlueScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(CoolBlueScrapperImpl.class);
 
     @Autowired
     public CoolBlueScrapperImpl(WebDriver ghostDriver, @Value("${sites.coolblue.url}") String url) {
-        super(ghostDriver);
-        this.url = url;
+        super(ghostDriver, url);
     }
 
     @Override
@@ -33,9 +31,13 @@ public class CoolBlueScrapperImpl extends BaseScrapper implements ScrapperServic
 
         if (repositories == null || repositories.isEmpty()) {
             LOGGER.warn("The item could not be found. Maybe something has changed?");
-            return Optional.of("Invalid selection " + RandomStringUtils.random(5));
+            return Optional.of("Invalid selection " + RandomStringUtils.randomAlphanumeric(5));
         } else {
-            return Optional.ofNullable(repositories.toString());
+            String parsedResult = repositories.toString()
+                    .replaceAll("collection-item-([A-Za-z0-9]+)", "collection-item")
+                    .replaceAll("data-overlay-trigger-id-([A-Za-z0-9]+)", "data-overlay-trigger-id");
+
+            return Optional.of(parsedResult);
         }
     }
 }

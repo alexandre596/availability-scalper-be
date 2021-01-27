@@ -16,13 +16,11 @@ import java.util.Optional;
 @Service
 public class BolScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(BolScrapperImpl.class);
 
     @Autowired
     public BolScrapperImpl(WebDriver ghostDriver, @Value("${sites.bol.url}") String url) {
-        super(ghostDriver);
-        this.url = url;
+        super(ghostDriver, url);
     }
 
     @Override

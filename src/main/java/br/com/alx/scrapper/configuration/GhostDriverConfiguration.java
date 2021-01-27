@@ -4,17 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.Arrays;
 
 @Configuration
 public class GhostDriverConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "quit")
     public WebDriver ghostDriver() {
         try {
             //set binary path of phantomJS driver

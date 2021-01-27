@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class PageScrapperComponent {
 
     private static Logger LOGGER = LoggerFactory.getLogger(PageScrapperComponent.class);
+    private static final String NO_DATA = "no-data";
 
     private final List<ScrapperService> list;
 
@@ -30,6 +31,7 @@ public class PageScrapperComponent {
         this.list = list;
 
         this.currentTags = new HashMap<>();
+        this.previousTags = ImmutableMap.of();
     }
 
     public void scrapPages() {
@@ -37,21 +39,21 @@ public class PageScrapperComponent {
             // Read the data from every website
             LOGGER.info("Getting ready to read information.");
             for (ScrapperService scrapperService : list) {
-                this.currentTags.put(scrapperService.toString(), scrapperService.getPriceSection().orElse("no-data"));
+                this.currentTags.put(scrapperService.toString(), scrapperService.getPriceSection().orElse(NO_DATA));
+
+                if(this.previousTags.containsKey(scrapperService.toString())) {
+                    String oldValue = this.previousTags.get(scrapperService.toString());
+                    String newValue = this.currentTags.get(scrapperService.toString());
+                    if (!oldValue.equals(newValue)) {
+                        // Compare the data with the previous loaded information
+                        LOGGER.info(">>> ATTENTION: CHANGES HAVE BEEN FOUND!");
+                        LOGGER.info("Difference on: {}", scrapperService);
+                        this.sendNotification(oldValue, newValue);
+                    }
+                }
             }
 
             LOGGER.info("Information read successfully.");
-
-            // Compare the data with the previous loaded information
-            if (MapUtils.isNotEmpty(this.previousTags)) {
-                LOGGER.info("Comparing current data with previous loaded information.");
-                MapDifference<String, String> diff = Maps.difference(this.currentTags, this.previousTags);
-
-                if (!diff.areEqual()) {
-                    LOGGER.info(">>> ATTENTION: CHANGES HAVE BEEN FOUND!");
-                    this.sendNotification(diff.entriesDiffering());
-                }
-            }
 
             // Save the current data to compare in the future.
             this.previousTags = ImmutableMap.copyOf(this.currentTags);
@@ -71,7 +73,12 @@ public class PageScrapperComponent {
         }
     }
 
-    private void sendNotification(Map<String, MapDifference.ValueDifference<String>> entriesDiffering) {
+    private void sendNotification(String oldValue, String newValue) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("OLD DATA: {}", oldValue);
+            LOGGER.info("NEW DATA: {}", newValue);
+        }
+
         LOGGER.info("Sending notification about changes!");
     }
 }

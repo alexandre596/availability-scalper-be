@@ -16,13 +16,11 @@ import java.util.Optional;
 @Service
 public class MediaMarktScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(MediaMarktScrapperImpl.class);
 
     @Autowired
     public MediaMarktScrapperImpl(WebDriver ghostDriver, @Value("${sites.mediamarkt.url}") String url) {
-        super(ghostDriver);
-        this.url = url;
+        super(ghostDriver, url);
     }
 
     @Override

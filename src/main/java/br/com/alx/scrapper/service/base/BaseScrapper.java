@@ -6,21 +6,19 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 public abstract class BaseScrapper {
 
     private final WebDriver ghostDriver;
-
-    @Value("${sites.cdiscount.url}")
-    private String phantomJsPath;
+    protected final String url;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseScrapper.class);
 
     @Autowired
-    public BaseScrapper(WebDriver ghostDriver) {
+    public BaseScrapper(WebDriver ghostDriver, String url) {
         super();
         this.ghostDriver = ghostDriver;
+        this.url = url;
     }
 
     public Document getFullPageContent(String url) {

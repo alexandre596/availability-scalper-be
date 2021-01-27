@@ -17,13 +17,11 @@ import java.util.Optional;
 @Service
 public class FnacScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private final String url;
     private static final Logger LOGGER = LoggerFactory.getLogger(FnacScrapperImpl.class);
 
     @Autowired
     public FnacScrapperImpl(WebDriver ghostDriver, @Value("${sites.fnac.url}") String url) {
-        super(ghostDriver);
-        this.url = url;
+        super(ghostDriver, url);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class FnacScrapperImpl extends BaseScrapper implements ScrapperService {
 
         if (repositories == null) {
             LOGGER.warn("The item could not be found. Maybe something has changed?");
-            return Optional.of("Invalid selection " + RandomStringUtils.random(5));
+            return Optional.of("Invalid selection " + RandomStringUtils.randomAlphanumeric(5));
         } else {
             return Optional.ofNullable(repositories.toString());
         }
