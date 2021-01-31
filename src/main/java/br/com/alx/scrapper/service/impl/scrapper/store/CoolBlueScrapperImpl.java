@@ -1,7 +1,7 @@
-package br.com.alx.scrapper.service.impl.store;
+package br.com.alx.scrapper.service.impl.scrapper.store;
 
-import br.com.alx.scrapper.service.ScrapperService;
-import br.com.alx.scrapper.service.base.BaseScrapper;
+import br.com.alx.scrapper.service.scrapper.ScrapperService;
+import br.com.alx.scrapper.service.impl.scrapper.base.BaseScrapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -39,5 +39,10 @@ public class CoolBlueScrapperImpl extends BaseScrapper implements ScrapperServic
 
             return Optional.of(parsedResult);
         }
+    }
+
+    @Override
+    public String getStoreName() {
+        return "CoolBlue";
     }
 }

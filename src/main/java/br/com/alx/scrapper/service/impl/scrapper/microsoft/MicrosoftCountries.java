@@ -1,4 +1,4 @@
-package br.com.alx.scrapper.service.impl.microsoft;
+package br.com.alx.scrapper.service.impl.scrapper.microsoft;
 
 public enum MicrosoftCountries {
 

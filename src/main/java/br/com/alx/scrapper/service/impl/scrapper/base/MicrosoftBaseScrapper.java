@@ -1,7 +1,7 @@
-package br.com.alx.scrapper.service.base;
+package br.com.alx.scrapper.service.impl.scrapper.base;
 
-import br.com.alx.scrapper.service.ScrapperService;
-import br.com.alx.scrapper.service.impl.microsoft.MicrosoftCountries;
+import br.com.alx.scrapper.service.scrapper.ScrapperService;
+import br.com.alx.scrapper.service.impl.scrapper.microsoft.MicrosoftCountries;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,6 +14,7 @@ import java.util.Optional;
 public abstract class MicrosoftBaseScrapper extends BaseScrapper implements ScrapperService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MicrosoftBaseScrapper.class);
+    private MicrosoftCountries microsoftCountry;
 
     protected MicrosoftBaseScrapper(WebDriver ghostDriver, String url) {
         super(ghostDriver, url);
@@ -21,6 +22,7 @@ public abstract class MicrosoftBaseScrapper extends BaseScrapper implements Scra
 
     protected MicrosoftBaseScrapper(WebDriver ghostDriver, String url, MicrosoftCountries microsoftCountry) {
         super(ghostDriver, url.replace("{lang}", microsoftCountry.getLang()).replace("{country}", microsoftCountry.getCountryCode()));
+        this.microsoftCountry = microsoftCountry;
     }
 
     @Override
@@ -35,5 +37,10 @@ public abstract class MicrosoftBaseScrapper extends BaseScrapper implements Scra
             return Optional.ofNullable(repositories.toString());
         }
 
+    }
+
+    @Override
+    public String getStoreName() {
+        return "Microsoft " + this.microsoftCountry.getLang() + "-" + this.microsoftCountry.getCountryCode();
     }
 }

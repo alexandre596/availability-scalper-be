@@ -1,4 +1,4 @@
-package br.com.alx.scrapper.service.base;
+package br.com.alx.scrapper.service.impl.scrapper.base;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

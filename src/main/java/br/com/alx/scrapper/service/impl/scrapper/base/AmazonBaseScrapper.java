@@ -1,6 +1,6 @@
-package br.com.alx.scrapper.service.base;
+package br.com.alx.scrapper.service.impl.scrapper.base;
 
-import br.com.alx.scrapper.service.ScrapperService;
+import br.com.alx.scrapper.service.scrapper.ScrapperService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

@@ -1,7 +1,7 @@
-package br.com.alx.scrapper.service.impl.amazon;
+package br.com.alx.scrapper.service.impl.scrapper.amazon;
 
-import br.com.alx.scrapper.service.ScrapperService;
-import br.com.alx.scrapper.service.base.AmazonBaseScrapper;
+import br.com.alx.scrapper.service.scrapper.ScrapperService;
+import br.com.alx.scrapper.service.impl.scrapper.base.AmazonBaseScrapper;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,5 +13,10 @@ public class AmazonGermanyScrapperImpl extends AmazonBaseScrapper implements Scr
     @Autowired
     protected AmazonGermanyScrapperImpl(WebDriver ghostDriver, @Value("${sites.amazon.de.url}") String url) {
         super(ghostDriver, url);
+    }
+
+    @Override
+    public String getStoreName() {
+        return "Amazon Germany";
     }
 }

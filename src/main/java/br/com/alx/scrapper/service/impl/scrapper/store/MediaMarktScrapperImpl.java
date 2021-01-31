@@ -1,7 +1,7 @@
-package br.com.alx.scrapper.service.impl.store;
+package br.com.alx.scrapper.service.impl.scrapper.store;
 
-import br.com.alx.scrapper.service.ScrapperService;
-import br.com.alx.scrapper.service.base.BaseScrapper;
+import br.com.alx.scrapper.service.scrapper.ScrapperService;
+import br.com.alx.scrapper.service.impl.scrapper.base.BaseScrapper;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.WebDriver;
@@ -14,19 +14,19 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class BolScrapperImpl extends BaseScrapper implements ScrapperService {
+public class MediaMarktScrapperImpl extends BaseScrapper implements ScrapperService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BolScrapperImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MediaMarktScrapperImpl.class);
 
     @Autowired
-    public BolScrapperImpl(WebDriver ghostDriver, @Value("${sites.bol.url}") String url) {
+    public MediaMarktScrapperImpl(WebDriver ghostDriver, @Value("${sites.mediamarkt.url}") String url) {
         super(ghostDriver, url);
     }
 
     @Override
     public Optional<String> getPriceSection() {
         Document page = getFullPageContent(this.url);
-        Elements repositories = page.getElementsByClass("price-block__price");
+        Elements repositories = page.getElementsByClass("price-sidebar");
 
         if (repositories == null || repositories.isEmpty()) {
             LOGGER.debug("The sidebar could not be found. Probably this item isn't available at the moment.");
@@ -35,5 +35,10 @@ public class BolScrapperImpl extends BaseScrapper implements ScrapperService {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public String getStoreName() {
+        return "MediaMarkt.be";
     }
 }
