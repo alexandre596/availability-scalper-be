@@ -31,8 +31,8 @@ public enum MicrosoftCountries {
     SWEDEN("sv", "SE"),
     ;
 
-    private String lang;
-    private String countryCode;
+    private final String lang;
+    private final String countryCode;
 
     MicrosoftCountries(String lang, String countryCode) {
         this.lang = lang;

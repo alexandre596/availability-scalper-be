@@ -2,9 +2,6 @@ package br.com.alx.scrapper.scrap;
 
 import br.com.alx.scrapper.service.ScrapperService;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.MapDifference;
-import com.google.common.collect.Maps;
-import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class PageScrapperComponent {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(PageScrapperComponent.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PageScrapperComponent.class);
     private static final String NO_DATA = "no-data";
 
     private final List<ScrapperService> list;

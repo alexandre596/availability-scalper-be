@@ -1,14 +1,12 @@
 package br.com.alx.scrapper.service.base;
 
 import br.com.alx.scrapper.service.ScrapperService;
-import br.com.alx.scrapper.service.impl.amazon.AmazonFranceScrapperImpl;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
