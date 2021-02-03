@@ -26,7 +26,6 @@ public class GhostDriverConfiguration {
             //set binary path of phantomJS driver
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setJavascriptEnabled(true);
-            //TODO read different files based on operation system using profiles
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, new ClassPathResource(phantomJsFileLocation).getFile().getAbsolutePath());
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX, "Y");
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, Collections.singletonList("--webdriver-loglevel=NONE"));
