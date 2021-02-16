@@ -1,11 +1,9 @@
 package br.com.alx.scrapper.utils;
 
-import org.apache.commons.io.LineIterator;
 import org.apache.commons.text.diff.CommandVisitor;
 import org.apache.commons.text.diff.StringsComparator;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;

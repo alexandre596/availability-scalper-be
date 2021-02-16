@@ -14,10 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Tag {
 
     @Id
-    private String id;
+    private final String id;
 
     @Indexed(unique=true)
-    private String serviceName;
+    private final String serviceName;
 
     @Setter
     private String tagContent;
