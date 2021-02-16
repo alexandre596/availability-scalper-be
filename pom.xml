@@ -92,6 +92,21 @@
             <version>1.9</version>
         </dependency>
 
+        <!-- Mongo DB -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -105,6 +120,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <annotationProcessorPaths>
+        <path>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </path>
+    </annotationProcessorPaths>
 
     <repositories>
         <repository>
