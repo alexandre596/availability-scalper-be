@@ -20,6 +20,6 @@ public class SanitizationServiceImpl implements SanitizationService {
 
     @Override
     public String sanitize(String input) {
-        return policyFactory.sanitize(input).replaceAll("(?m)^[ \t]*\r?\n", "") + RandomStringUtils.randomAlphanumeric(5);
+        return policyFactory.sanitize(input).replaceAll("(?m)^[ \t]*\r?\n", "").trim() + RandomStringUtils.randomAlphanumeric(5);
     }
 }
